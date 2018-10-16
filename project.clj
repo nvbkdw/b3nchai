@@ -28,7 +28,9 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.7.0"]
                  [ring/ring-defaults "0.3.2"]
-                 [selmer "1.12.2"]]
+                 [selmer "1.12.2"]
+                 [io.reactivex.rxjava2/rxjava "2.2.2"]
+                 [amazonica "0.3.132"]]
 
   :min-lein-version "2.0.0"
   

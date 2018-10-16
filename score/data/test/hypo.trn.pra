@@ -1,0 +1,17 @@
+
+
+		DUMP OF SYSTEM ALIGNMENT STRUCTURE
+
+System name:   score/data/test/hypo.trn
+
+Speakers: 
+    0:  u
+
+Speaker sentences   0:  u   #utts: 1
+id: (u_1)
+Scores: (#C #S #D #I) 5 0 1 0
+REF:  transcribe is THE best asr service 
+HYP:  transcribe is *** best asr service 
+Eval:               D                    
+
+

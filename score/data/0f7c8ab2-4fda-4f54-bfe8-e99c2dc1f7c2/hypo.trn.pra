@@ -1,0 +1,17 @@
+
+
+		DUMP OF SYSTEM ALIGNMENT STRUCTURE
+
+System name:   score/data/0f7c8ab2-4fda-4f54-bfe8-e99c2dc1f7c2/hypo.trn
+
+Speakers: 
+    0:  u
+
+Speaker sentences   0:  u   #utts: 1
+id: (u_0f7c8ab24fda4f54bfe8e99c2dc1f7c2)
+Scores: (#C #S #D #I) 33 5 1 3
+REF:  down movement and what that does is it WILL ALLOW  the SCALAR to kind of work its way in between the scales and ***** *** PULL THEM gently rather than in * way that CAN   kind of damage or break the meat 
+HYP:  down movement and what that does is it **** ALLOWS the SCALER to kind of work its way in between the scales and PULLS HIM AWAY OF   gently rather than in A way that COULD kind of damage or break the meat 
+Eval:                                        D    S          S                                                        I     I   S    S                          I          S                                      
+
+

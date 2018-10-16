@@ -1,0 +1,4 @@
+Filtering Files:
+   Filtering english file 'sastt-case1.ref.rttm', rttm format
+   Filtering english file 'sastt-case1.sys.rttm', rttm format
+Scoring english Hyp 'sastt-case1.sys.rttm.filt' against ref 'sastt-case1.ref.rttm.filt'
