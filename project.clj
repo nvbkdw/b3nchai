@@ -31,7 +31,10 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.7.0"]
                  [ring/ring-defaults "0.3.2"]
-                 [selmer "1.12.2"]]
+                 [selmer "1.12.2"]
+                 [amazonica "0.3.132"]
+                 [com.taoensso/timbre "4.10.0"]
+                 [cheshire "5.8.1"]]
 
   :min-lein-version "2.0.0"
   

@@ -1,4 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-  <img src="/img/warning_clojure.png"></img>
+<div id="drag-drop-area">
+
+</div>
+{% csrf-field %}
+<script src="https://transloadit.edgly.net/releases/uppy/v0.27.5/dist/uppy.min.js"></script>
+<script>
+  var uppy = Uppy.Core()
+  var csrf = document.getElementById("__anti-forgery-token").value
+  uppy.use(Uppy.Dashboard, {
+    inline: true,
+    target: '#drag-drop-area'
+  })
+
+  const AwsS3 = Uppy.AwsS3
+  uppy.use(AwsS3, {
+    getUploadParameters (file) {
+      return fetch('/s3-sign', {
+        method: 'post',
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+          'X-CSRF-Token': csrf,
+        },
+        body: JSON.stringify({
+          filename: file.name,
+          contentType: file.type
+        })
+      }).then((response) => {
+        return response.json()
+      }).then((data) => {
+        return {
+          method: data.method,
+          url: data.url,
+          fields: data.fields
+        }
+      })
+    }
+  })
+</script>
+
 {% endblock %}
