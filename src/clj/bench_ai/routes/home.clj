@@ -21,9 +21,10 @@
   (let [presigned-url (s3/generate-presigned-url {:access-key (env :aws-access-key)
                                                   :secret-key (env :aws-secret-key)
                                                   :endpoint "us-west-2"}
-                                                 (env :aws-bucket)
-                                                 (str "dev/" filename)
-                                                 (t/plus (t/now) (t/minutes 5)))]
+                                                 (:aws-bucket env)
+                                                 filename
+                                                 (t/plus (t/now) (t/minutes 5))
+                                                 "PUT")]
     (response/created (str presigned-url) (generate-string {:method "PUT"
                                                             :url (str presigned-url)
                                                             :fields {}
