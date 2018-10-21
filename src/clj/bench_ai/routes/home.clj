@@ -30,8 +30,12 @@
                                                             :fields {}
                                                             :headers {}}))))
 
+(defn benchmark [object-url]
+  )
+
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
-  (POST "/s3-sign" [filename contentType] (s3-sign filename contentType)))
+  (POST "/s3-sign" [filename contentType] (s3-sign filename contentType))
+  (POST "/benchmark" [object-url] (benchmark object-url)))
 

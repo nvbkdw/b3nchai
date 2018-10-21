@@ -39,6 +39,11 @@
       })
     }
   })
+
+  uppy.on('upload-success', (file, data) => {
+    debugger
+    console.log("S3 KEY IS: " + file.meta['key'])
+  })
 </script>
 
 {% endblock %}
