@@ -10,15 +10,12 @@ import io.reactivex.Flowable;
 import io.reactivex.processors.ReplayProcessor;
 import io.reactivex.schedulers.Schedulers;
 import org.reactivestreams.Publisher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 public class IntegrationTest {
     public static void main(String[] args) throws InterruptedException {
-        Logger log = LoggerFactory.getLogger(IntegrationTest.class);
         ReplayProcessor processor = ReplayProcessor.create();
         Publisher evaluationStart = new EvaluationStart().apply(processor);
         Publisher callTranscribe = new AWSTranscribeCaller().apply(Flowable.fromPublisher(evaluationStart));
