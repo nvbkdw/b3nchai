@@ -21,7 +21,7 @@
   (let [presigned-url (s3/generate-presigned-url {:access-key (env :aws-access-key)
                                                   :secret-key (env :aws-secret-key)
                                                   :endpoint "us-west-2"}
-                                                 (:aws-bucket env)
+                                                 (env :aws-bucket)
                                                  filename
                                                  (t/plus (t/now) (t/minutes 5))
                                                  "PUT")]
@@ -30,12 +30,14 @@
                                                             :fields {}
                                                             :headers {}}))))
 
-(defn benchmark [object-url]
-  )
+(defn benchmark [filename]
+  (let [object-url (str (env :aws-bucket) "/" filename)]
+    (log/info "OBJECT URL IS: " object-url)
+    (response/created object-url {})))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
   (POST "/s3-sign" [filename contentType] (s3-sign filename contentType))
-  (POST "/benchmark" [object-url] (benchmark object-url)))
+  (POST "/benchmark" [filename] (benchmark filename)))
 

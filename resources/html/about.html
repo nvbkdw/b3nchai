@@ -41,8 +41,21 @@
   })
 
   uppy.on('upload-success', (file, data) => {
-    debugger
-    console.log("S3 KEY IS: " + file.meta['key'])
+    return fetch('/benchmark', {
+      method: 'post',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        'X-CSRF-Token': csrf,
+      },
+      body: JSON.stringify({
+        filename: file.name
+      })
+    }).then((response) => {
+      console.log(response)
+    }).catch(error =>
+      console.log("Error: " + error)
+    )
   })
 </script>
 

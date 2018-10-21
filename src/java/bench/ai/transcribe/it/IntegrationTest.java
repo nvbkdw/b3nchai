@@ -15,6 +15,10 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 public class IntegrationTest {
+    public static void test() {
+        System.out.println("TEST!!!");
+    }
+
     public static void main(String[] args) throws InterruptedException {
         ReplayProcessor processor = ReplayProcessor.create();
         Publisher evaluationStart = new EvaluationStart().apply(processor);
