@@ -34,7 +34,8 @@
                  [selmer "1.12.2"]
                  [amazonica "0.3.132"]
                  [com.taoensso/timbre "4.10.0"]
-                 [cheshire "5.8.1"]]
+                 [cheshire "5.8.1"]
+                 [io.reactivex.rxjava2/rxjava "2.2.2"]]
 
   :min-lein-version "2.0.0"
   
