@@ -8,7 +8,7 @@ import org.reactivestreams.Publisher;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ASREvaluation implements FlowableTransformer<JobPoller.Transcript, ASREvaluation.EvaluationResult> {
+public class ASREvaluation {
 
     interface EvaluationResult {
         String id();
@@ -16,8 +16,7 @@ public class ASREvaluation implements FlowableTransformer<JobPoller.Transcript, 
         float rtf();
     }
 
-    @Override
-    public Publisher<EvaluationResult> apply(Flowable<JobPoller.Transcript> upstream) {
+    public static Publisher<EvaluationResult> transform(Flowable<JobPoller.Transcript> upstream) {
 
         return upstream.map(transcript -> {
             Path hypoPath = Paths.get(EvaluationStart.DATA_PATH, transcript.id(), "hypo.trn");

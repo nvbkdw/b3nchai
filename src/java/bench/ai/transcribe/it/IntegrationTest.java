@@ -21,10 +21,10 @@ public class IntegrationTest {
 
     public static void main(String[] args) throws InterruptedException {
         ReplayProcessor processor = ReplayProcessor.create();
-        Publisher evaluationStart = new EvaluationStart().apply(processor);
-        Publisher callTranscribe = new AWSTranscribeCaller().apply(Flowable.fromPublisher(evaluationStart));
-        Publisher pollJob = new JobPoller().apply(Flowable.fromPublisher(callTranscribe).observeOn(Schedulers.io()));
-        Publisher evaluation = new ASREvaluation().apply(Flowable.fromPublisher(pollJob).observeOn(Schedulers.computation()));
+        Publisher evaluationStart = EvaluationStart.transform(processor);
+        Publisher callTranscribe = AWSTranscribeCaller.transform(Flowable.fromPublisher(evaluationStart), null);
+        Publisher pollJob = JobPoller.transform(Flowable.fromPublisher(callTranscribe).observeOn(Schedulers.io()));
+        Publisher evaluation = ASREvaluation.transform(Flowable.fromPublisher(pollJob).observeOn(Schedulers.computation()));
         CountDownLatch latch = new CountDownLatch(1);
         Flowable.fromPublisher(evaluation).subscribe(e -> {}, throwable -> {}, () -> {latch.countDown();});
 

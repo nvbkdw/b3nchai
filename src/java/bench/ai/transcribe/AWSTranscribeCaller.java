@@ -4,14 +4,11 @@ import com.amazonaws.services.transcribe.AmazonTranscribe;
 import com.amazonaws.services.transcribe.AmazonTranscribeClient;
 import com.amazonaws.services.transcribe.model.*;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableTransformer;
 import org.reactivestreams.Publisher;
 
-public class AWSTranscribeCaller implements FlowableTransformer<AWSTranscribeCaller.Request, JobPoller.ASRJob> {
-    AmazonTranscribe transcribe = AmazonTranscribeClient.builder().build();
-
-    @Override
-    public Publisher<JobPoller.ASRJob> apply(Flowable<Request> flowable) {
+public class AWSTranscribeCaller {
+    public static Publisher<JobPoller.ASRJob> transform(Flowable<Request> flowable, AmazonTranscribe transcribe) {
+//        AmazonTranscribe transcribe = AmazonTranscribeClient.builder().build();
         return flowable.flatMap(request -> {
             StartTranscriptionJobRequest startTranscriptionJobRequest = new StartTranscriptionJobRequest()
                     .withMediaFormat(MediaFormat.Wav)

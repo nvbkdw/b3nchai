@@ -57,7 +57,7 @@
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn" "--add-modules" "java.xml.bind"]
+   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"]
                   :dependencies [[expound "0.7.1"]
                                  [pjstadig/humane-test-output "0.8.3"]
                                  [prone "1.6.1"]

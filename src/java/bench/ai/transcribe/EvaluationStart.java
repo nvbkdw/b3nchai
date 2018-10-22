@@ -3,14 +3,14 @@ package bench.ai.transcribe;
 import com.amazonaws.services.transcribe.model.LanguageCode;
 import com.amazonaws.services.transcribe.model.Media;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableTransformer;
 import org.apache.commons.io.FileUtils;
 import org.reactivestreams.Publisher;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
-public class EvaluationStart implements FlowableTransformer<EvaluationStart.SingleEvaluationJob, AWSTranscribeCaller.Request> {
+public class EvaluationStart {
 
     public static String DATA_PATH = "score/data";
 
@@ -20,8 +20,38 @@ public class EvaluationStart implements FlowableTransformer<EvaluationStart.Sing
         LanguageCode language();
     }
 
-    @Override
-    public Publisher<AWSTranscribeCaller.Request> apply(Flowable<SingleEvaluationJob> upstream) {
+    public static SingleEvaluationJob getJob(String filename){
+        return new EvaluationStart.SingleEvaluationJob(){
+            String id = UUID.randomUUID().toString();
+
+            @Override
+            public String id() {
+                return id;
+            }
+
+            @Override
+            public String ref() {
+                return "down movement and what that does is it will allow the scalar to kind of work its way in between " +
+                        "the scales and pull them gently rather than in way that can kind of damage or break the meat";
+            }
+
+            @Override
+            public Media source() {
+                return new Media().withMediaFileUri("s3://benchai/" + filename);
+            }
+
+            @Override
+            public LanguageCode language() {
+                return LanguageCode.EnUS;
+            }
+        };
+    }
+
+    public static String test() {
+        return "Test";
+    }
+
+    public static Publisher<AWSTranscribeCaller.Request> transform(Flowable<SingleEvaluationJob> upstream) {
         return upstream
                 .doOnNext(singleEvaluationJob -> {
                     Path jobFoldler = Paths.get(DATA_PATH, singleEvaluationJob.id());

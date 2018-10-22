@@ -18,15 +18,8 @@ import java.net.URL;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.TimeUnit;
 
-public class JobPoller implements FlowableTransformer<JobPoller.ASRJob, JobPoller.Transcript> {
-    Logger log = LoggerFactory.getLogger(JobPoller.class);
-    AmazonTranscribe transcribe = AmazonTranscribeClient.builder()
-            .build();
-
-
-    ConcurrentLinkedDeque<ASRJob> queue = new ConcurrentLinkedDeque();
-
-    ObjectMapper objectMapper = new ObjectMapper();
+public class JobPoller {
+    private static Logger log = LoggerFactory.getLogger(JobPoller.class);
 
     interface ASRJob extends SingleJob {
         TranscriptionJob transcriptionJob();
@@ -36,10 +29,13 @@ public class JobPoller implements FlowableTransformer<JobPoller.ASRJob, JobPolle
         String transcript();
     }
 
-    public class TranscriptJobFailure extends Exception{}
+    public class TranscriptJobFailure extends Exception {}
 
-    @Override
-    public Publisher<Transcript> apply(Flowable<ASRJob> flowable) {
+    public static Publisher<Transcript> transform(Flowable<ASRJob> flowable) {
+        AmazonTranscribe transcribe = AmazonTranscribeClient.builder()
+                .build();
+        ConcurrentLinkedDeque<ASRJob> queue = new ConcurrentLinkedDeque();
+        ObjectMapper objectMapper = new ObjectMapper();
         Flowable ticker = Flowable.interval(1, TimeUnit.SECONDS);
 
         return flowable

@@ -8,7 +8,8 @@
             [clj-time.core :as t]
             [bench-ai.config :refer [env]]
             [amazonica.aws.s3 :as s3]
-            [cheshire.core :refer [generate-string]]))
+            [cheshire.core :refer [generate-string]]
+            [bench-ai.evaluation :as evaluation]))
 
 (defn home-page []
   (layout/render
@@ -20,7 +21,7 @@
 (defn s3-sign [filename contentType]
   (let [presigned-url (s3/generate-presigned-url {:access-key (env :aws-access-key)
                                                   :secret-key (env :aws-secret-key)
-                                                  :endpoint "us-west-2"}
+                                                  :endpoint (env :aws-region)}
                                                  (env :aws-bucket)
                                                  filename
                                                  (t/plus (t/now) (t/minutes 5))
@@ -30,14 +31,11 @@
                                                             :fields {}
                                                             :headers {}}))))
 
-(defn benchmark [filename]
-  (let [object-url (str (env :aws-bucket) "/" filename)]
-    (log/info "OBJECT URL IS: " object-url)
-    (response/created object-url {})))
+
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
   (POST "/s3-sign" [filename contentType] (s3-sign filename contentType))
-  (POST "/benchmark" [filename] (benchmark filename)))
+  (POST "/benchmark" [filename] (evaluation/test filename)))
 
