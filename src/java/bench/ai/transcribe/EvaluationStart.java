@@ -20,7 +20,7 @@ public class EvaluationStart {
         LanguageCode language();
     }
 
-    public static SingleEvaluationJob getJob(String filename){
+    public static SingleEvaluationJob getJob(String filename, String bucketname){
         return new EvaluationStart.SingleEvaluationJob(){
             String id = UUID.randomUUID().toString();
 
@@ -37,7 +37,7 @@ public class EvaluationStart {
 
             @Override
             public Media source() {
-                return new Media().withMediaFileUri("s3://benchai/" + filename);
+                return new Media().withMediaFileUri("s3://" + bucketname + "/" + filename);
             }
 
             @Override
@@ -59,7 +59,7 @@ public class EvaluationStart {
 
                     Path refPath = jobFoldler.resolve("ref.trn");
                     String refTranscript = singleEvaluationJob.ref().replace("\n", " ");
-                    String trnTranscript = String.format("%s (u_%s)", refTranscript, singleEvaluationJob.id().replace("-", ""));
+                    String trnTranscript = String.format("%s (u_%s)\n", refTranscript, singleEvaluationJob.id().replace("-", ""));
                     FileUtils.writeStringToFile( refPath.toFile(), trnTranscript);
                 })
                 .map(singleEvaluationJob -> {

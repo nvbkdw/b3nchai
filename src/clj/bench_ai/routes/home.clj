@@ -37,5 +37,5 @@
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
   (POST "/s3-sign" [filename contentType] (s3-sign filename contentType))
-  (POST "/benchmark" [filename] (evaluation/test filename)))
+  (POST "/benchmark" [filename] (evaluation/benchmark filename)))
 

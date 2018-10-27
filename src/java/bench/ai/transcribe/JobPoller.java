@@ -31,9 +31,7 @@ public class JobPoller {
 
     public class TranscriptJobFailure extends Exception {}
 
-    public static Publisher<Transcript> transform(Flowable<ASRJob> flowable) {
-        AmazonTranscribe transcribe = AmazonTranscribeClient.builder()
-                .build();
+    public static Publisher<Transcript> transform(Flowable<ASRJob> flowable, AmazonTranscribeClient transcribe) {
         ConcurrentLinkedDeque<ASRJob> queue = new ConcurrentLinkedDeque();
         ObjectMapper objectMapper = new ObjectMapper();
         Flowable ticker = Flowable.interval(1, TimeUnit.SECONDS);

@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 import org.reactivestreams.Publisher;
 
 public class AWSTranscribeCaller {
-    public static Publisher<JobPoller.ASRJob> transform(Flowable<Request> flowable, AmazonTranscribe transcribe) {
+    public static Publisher<JobPoller.ASRJob> transform(Flowable<Request> flowable, AmazonTranscribeClient transcribe) {
 //        AmazonTranscribe transcribe = AmazonTranscribeClient.builder().build();
         return flowable.flatMap(request -> {
             StartTranscriptionJobRequest startTranscriptionJobRequest = new StartTranscriptionJobRequest()

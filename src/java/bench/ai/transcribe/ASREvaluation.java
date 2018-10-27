@@ -21,7 +21,7 @@ public class ASREvaluation {
         return upstream.map(transcript -> {
             Path hypoPath = Paths.get(EvaluationStart.DATA_PATH, transcript.id(), "hypo.trn");
 
-            String trnTranscript = String.format("%s (u_%s)", transcript.transcript(), transcript.id().replace("-", ""));
+            String trnTranscript = String.format("%s (u_%s)\n", transcript.transcript(), transcript.id().replace("-", ""));
             FileUtils.writeStringToFile(hypoPath.toFile(), trnTranscript);
 
             Process process = Runtime.getRuntime().exec(new String[]{"score/run.sh", transcript.id()});

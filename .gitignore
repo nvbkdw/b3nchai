@@ -16,3 +16,5 @@ profiles.clj
 *.iml
 *.log
 score/data
+score/.DS_Store
+.DS_Store
