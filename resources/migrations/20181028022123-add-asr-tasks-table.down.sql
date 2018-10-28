@@ -1,0 +1,1 @@
+DROP TABLE asr_tasks;

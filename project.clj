@@ -22,6 +22,7 @@
                  [org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.cli "0.4.1"]
                  [org.clojure/tools.logging "0.4.1"]
+                 [org.clojure/java.jdbc "0.6.1"]
                  [org.postgresql/postgresql "42.2.5"]
                  [org.webjars.bower/tether "1.4.4"]
                  [org.webjars/bootstrap "4.1.3"]
@@ -32,6 +33,7 @@
                  [ring/ring-core "1.7.0"]
                  [ring/ring-defaults "0.3.2"]
                  [selmer "1.12.2"]
+                 [migratus "1.1.6"]
                  [amazonica "0.3.132"]
                  [com.taoensso/timbre "4.10.0"]
                  [cheshire "5.8.1"]
@@ -45,7 +47,9 @@
   :target-path "target/%s/"
   :main ^:skip-aot bench-ai.core
 
-  :plugins [[lein-immutant "2.1.0"]]
+  :plugins [[lein-immutant "2.1.0"]
+            [migratus-lein "0.6.7"]
+            ]
 
   :profiles
   {:uberjar {:omit-source true
@@ -56,6 +60,15 @@
 
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
+   :migratus {:store :database
+              :migration-dir "migrations"
+              :db {:classname "org.postgresql.Driver"
+                   :subprotocol "postgresql"
+                   :subname     "//dumtest-cluster.cluster-cuugh3aso3rn.us-west-2.rds.amazonaws.com/metadata"
+                   :user        "poweruser"
+                   :password    "password"
+                   }
+              }
 
    :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"]
                   :dependencies [[expound "0.7.1"]

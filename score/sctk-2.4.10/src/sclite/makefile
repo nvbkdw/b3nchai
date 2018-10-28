@@ -19,7 +19,7 @@ LIBS = -lm  $(SLM_TARGETS)
 # Some System V machines do not come with libPW.
 # If this is true for you, use the GNU alloca.o here.
 
-prefix = /Users/ruoyuhuang/myworkspace/b3nchai/src/clj/score/sctk-2.4.10
+prefix = /Users/ruoyuhuang/myworkspace/b3nchai/score/sctk-2.4.10
 exec_prefix = ${prefix}
 edit_program_name = sed 's,x,x,'
 

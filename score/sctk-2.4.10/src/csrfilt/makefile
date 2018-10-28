@@ -2,7 +2,7 @@
 # Makefile for rfilter1 Directory
 # **********************************************************
 SHELL = /bin/sh
-PREFIX=/Users/ruoyuhuang/myworkspace/b3nchai/src/clj/score/sctk-2.4.10
+PREFIX=/Users/ruoyuhuang/myworkspace/b3nchai/score/sctk-2.4.10
 bindir = $(PREFIX)/bin
 T=../test_suite
 

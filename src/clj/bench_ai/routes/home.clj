@@ -19,16 +19,16 @@
   (layout/render "about.html"))
 
 (defn s3-sign [filename contentType]
-  (let [presigned-url (s3/generate-presigned-url {:access-key (env :aws-access-key)
-                                                  :secret-key (env :aws-secret-key)
-                                                  :endpoint (env :aws-region)}
-                                                 (env :aws-bucket)
+  (let [presigned-url (s3/generate-presigned-url {:access-key (:aws-access-key env)
+                                                  :secret-key (:aws-secret-key env)
+                                                  :endpoint   (:aws-region env)}
+                                                 (:aws-bucket env)
                                                  filename
                                                  (t/plus (t/now) (t/minutes 5))
                                                  "PUT")]
-    (response/created (str presigned-url) (generate-string {:method "PUT"
-                                                            :url (str presigned-url)
-                                                            :fields {}
+    (response/created (str presigned-url) (generate-string {:method  "PUT"
+                                                            :url     (str presigned-url)
+                                                            :fields  {}
                                                             :headers {}}))))
 
 

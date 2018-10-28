@@ -6,6 +6,7 @@ import io.reactivex.Flowable;
 import org.apache.commons.io.FileUtils;
 import org.reactivestreams.Publisher;
 
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -59,7 +60,10 @@ public class EvaluationStart {
 
                     Path refPath = jobFoldler.resolve("ref.trn");
                     String refTranscript = singleEvaluationJob.ref().replace("\n", " ");
-                    String trnTranscript = String.format("%s (u_%s)\n", refTranscript, singleEvaluationJob.id().replace("-", ""));
+                    String trnTranscript = String.format("%s ( u_1 )\n", refTranscript);
+                    try (PrintWriter out = new PrintWriter(refPath.toFile())) {
+                        out.println(trnTranscript);
+                    }
                     FileUtils.writeStringToFile( refPath.toFile(), trnTranscript);
                 })
                 .map(singleEvaluationJob -> {
